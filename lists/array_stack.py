@@ -50,3 +50,19 @@ class ArrayStack:
         for i in range(0, self.n):
             b[i] = self.a[i]
         self.a = b
+
+
+class FastArrayStack(ArrayStack):
+
+    def _add(self, i: int, x: object) -> None:
+        if self.n + 1 >= len(self.a):
+            self._resize()
+
+        self.a[i + 1:] = self.a[i:]
+        self.a[i] = x
+        self.n += 1
+
+    def _resize(self) -> None:
+        b = [None] * max(self.n * 2, 1)
+        b[:self.n] = self.a
+        self.a = b
