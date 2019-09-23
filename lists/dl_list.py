@@ -84,3 +84,31 @@ class DLList:
             b = b.prev
 
         return True
+
+    def rotate(self, r: int) -> None:
+        mod = r % self.n
+        if mod == 0:
+            return
+
+        if mod <= self.n / 2:
+            cur = self.dummy.next
+            for _ in range(0, mod):
+                cur = cur.next
+        else:
+            cur = self.dummy.prev
+            for _ in range(self.n, mod + 1, -1):
+                cur = cur.prev
+
+        # current node is now a new head!
+        new_head = cur
+
+        dummy = self.dummy
+        old_head = dummy.next
+        old_tail = dummy.prev
+        old_tail.next = old_head
+        new_tail = new_head.prev
+        new_tail.prev = old_tail
+        new_tail.next = dummy
+        new_head.prev = dummy
+        dummy.prev = new_tail
+        dummy.next = new_head

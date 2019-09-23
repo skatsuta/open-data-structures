@@ -37,3 +37,26 @@ class TestDLList:
             dl.add(0, i)
 
         assert dl.is_palindrome() == expected
+
+    @pytest.mark.parametrize('r, expected', [
+        (0, [0, 1, 2, 3, 4, 5]),
+        (1, [1, 2, 3, 4, 5, 0]),
+        (2, [2, 3, 4, 5, 0, 1]),
+        (3, [3, 4, 5, 0, 1, 2]),
+        (4, [4, 5, 0, 1, 2, 3]),
+        (5, [5, 0, 1, 2, 3, 4]),
+        (6, [0, 1, 2, 3, 4, 5]),
+        (7, [1, 2, 3, 4, 5, 0]),
+    ])
+    def test_rotate(self, r, expected):
+        dl = DLList()
+
+        items = [i for i in range(0, 6)]
+        for i in items:
+            dl.add(dl.n, i)
+
+        dl.rotate(r)
+
+        for i in range(0, dl.n):
+            print(f'assertion {i}, n = {dl.n}')
+            assert dl.remove(0) == items[(i + r) % len(items)]
