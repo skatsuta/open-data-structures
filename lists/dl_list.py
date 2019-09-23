@@ -18,6 +18,18 @@ class DLList:
         self.dummy = dummy
         self.n = 0
 
+    def __str__(self) -> str:
+        if self.n == 0:
+            return '[]'
+
+        elems = []
+        cur = self.dummy.next
+        while cur != self.dummy:
+            elems.append(f'[{cur.x}]')
+            cur = cur.next
+
+        return ' <-> '.join(elems)
+
     def get_node(self, i: int) -> Node:
         if i < self.n // 2:
             p = self.dummy.next
@@ -59,3 +71,16 @@ class DLList:
         x = w.x
         self.remove_node(w)
         return x
+
+    def is_palindrome(self) -> bool:
+        a = self.dummy.next
+        b = self.dummy.prev
+
+        for i in range(0, self.n // 2 + 1):
+            if a.x != b.x:
+                return False
+
+            a = a.next
+            b = b.prev
+
+        return True
