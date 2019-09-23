@@ -14,6 +14,18 @@ class SLList:
     tail: Optional[Node] = None
     n: int = 0
 
+    def __str__(self) -> str:
+        if self.n == 0:
+            return '[]'
+
+        elems = []
+        cur = self.head
+        while cur:
+            elems.append(f'[{cur.x}]')
+            cur = cur.next
+
+        return ' -> '.join(elems)
+
     def push(self, x: object) -> object:
         u = Node(x, next=self.head)
         self.head = u
@@ -61,3 +73,20 @@ class SLList:
             prev = cur
             cur = cur.next
         return None if prev is None else prev.x
+
+    def reverse(self) -> None:
+        if self.n <= 1:
+            return
+
+        u = self.head
+        self.tail = u
+        w = u.next
+        u.next = None
+        for i in range(0, self.n - 1):
+            v = w.next
+            w.next = u
+
+            u = w
+            w = v
+
+        self.head = u

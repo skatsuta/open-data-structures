@@ -31,3 +31,14 @@ class TestSLList:
             sl.add(i)
 
         assert sl.second_last() == expected
+
+    def test_reverse(self):
+        sl = SLList()
+
+        for i in range(0, 10):
+            sl.add(i)
+
+        sl.reverse()
+
+        for i in range(9, -1, -1):
+            assert sl.remove() == i
