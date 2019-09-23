@@ -5,7 +5,7 @@ from typing import Optional
 @dataclass
 class Node:
     x: object
-    nxt: Optional[object] = None
+    next: Optional[object] = None
 
 
 @dataclass
@@ -15,7 +15,7 @@ class SLList:
     n: int = 0
 
     def push(self, x: object) -> object:
-        u = Node(x, nxt=self.head)
+        u = Node(x, next=self.head)
         self.head = u
 
         if self.n == 0:
@@ -30,7 +30,7 @@ class SLList:
             return None
 
         x = self.head.x
-        self.head = self.head.nxt
+        self.head = self.head.next
         self.n -= 1
 
         if self.n == 0:
@@ -44,7 +44,7 @@ class SLList:
         if self.n == 0:
             self.head = u
         else:
-            self.tail.nxt = u
+            self.tail.next = u
 
         self.tail = u
         self.n += 1
@@ -53,3 +53,11 @@ class SLList:
 
     def remove(self) -> Optional[object]:
         return self.pop()
+
+    def second_last(self) -> Optional[object]:
+        prev = None
+        cur = self.head
+        while cur and cur.next:
+            prev = cur
+            cur = cur.next
+        return None if prev is None else prev.x
